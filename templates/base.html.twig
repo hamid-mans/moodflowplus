@@ -2,9 +2,12 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <title>MoodFlow+ - {% block title %}{% endblock %}</title>
         {% block stylesheets %}
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.4/dist/semantic.min.css">
+            <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.4/dist/semantic.min.js"></script>
+            <script src="{{ asset('js/app.js') }}"></script>
         {% endblock %}
 
         {% block javascripts %}
@@ -12,6 +15,30 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+    <div class="ui secondary menu">
+        <a href="{{ path('app_home') }}" class="active item">
+            Accueil
+        </a>
+        <a class="item">
+            A propos
+        </a>
+        <div class="right menu">
+            {% if not app.user %}
+                <a href="{{ path('app_register') }}" class="ui item">
+                    Créer un compte
+                </a>
+                <a href="{{ path('app_login') }}" class="ui item">
+                    Se connecter
+                </a>
+            {% else %}
+                <a class="ui item" href="{{ path('app_profil') }}">
+                    {{ app.user.name }} <i class="ui angle double right icon"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+        <div class="content">
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>

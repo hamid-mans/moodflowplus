@@ -1,3 +1,41 @@
-body {
-    background-color: skyblue;
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+.content {
+    margin: 50px 100px 50px 100px;
+}
+
+.ui.secondary.menu {
+    padding: 20px;
+    background-color: #a44fa4;
+}
+
+.ui.secondary.menu .item, .ui.secondary.menu .active.item {
+    color: white !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+table thead th {
+    background-color: #a44fa4 !important;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 17px;
+}
+
+table tbody tr td {
+    text-align: center !important;
+    padding-top: 30px !important;
+}
+
+table tbody tr td span.icon {
+    font-size: 60px;
+}
+
+table tbody tr td span.label {
+    font-weight: bold;
+    font-size: 30px;
 }

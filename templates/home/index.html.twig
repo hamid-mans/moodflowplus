@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <h1>{{ app.user ? 'Bonjour ' ~ app.user.name ~ ',' : 'Bienvenue sur MoodFlow+,' }}</h1>
+
+    <div class="ui message">
+        <div class="header">
+            Comment MoodFlow+ fonctionne ?
+        </div>
+        <br>
+        <p style="text-align: justify">
+            Cette plateforme vous permet de définir quotidiennement votre humeur en fonction des évènenments de la journée. Vous pouvez détailler certaines actions de votre journée, MoodFlow+ vous permet de créer votre journal personnel et personnalisé par jour. La plateforme vous offre également une statistique hebdomadaire de votre humeur afin d'avoir en visuel votre état mental sur une semaine.
+        </p>
+        <h4>
+            MoodFlow+ est une application gratuite créé pour vous
+        </h4>
+
+        {% if app.user %}
+            <a href="{{ path('app_profil') }}" style="letter-spacing: 2px" class="ui purple button">
+                OUVRIR LA PLATEFORME
+            </a>
+        {% else %}
+            <a href="{{ path('app_register') }}" style="letter-spacing: 2px" class="ui purple button">
+                CRÉER UN COMPTE DÈS MAINTENANT
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}

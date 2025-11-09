@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon mois{% endblock %}
+
+{% block body %}
+    <h1 style="margin-bottom: 0;">Bonjour {{ app.user.name }},</h1>
+    <h3 style="margin-top: 0;"><i>Voici vos humeurs du mois : {{ firstDay|date('F Y') }}</i></h3>
+
+    <a href="{{ path('app_profil') }}">Retour au profil</a>
+
+    {% set moodIcons = {
+        1: '😎',
+        2: '😁',
+        3: '🤔',
+        4: '😞',
+        5: '😫'
+    } %}
+
+    {% set moodLabels = {
+        1: 'Super Heureux',
+        2: 'Heureux',
+        3: 'Neutre',
+        4: 'Triste',
+        5: 'Très Triste'
+    } %}
+
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            {% for i in 1..7 %}
+                <th style="text-align: center;">{{ ('Monday'|date_modify('+' ~ (i - 1) ~ ' days'))|date('l') }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% set dayCount = 0 %}
+        <tr>
+            {% for date, mood in monthDays %}
+            <td style="text-align: center; padding: 10px;">
+                <strong>{{ date|date('d') }}</strong><br><br>
+                <span style="font-size: 50px" class="icon">{{ mood ? moodIcons[mood.mood] : '' }}</span><br>
+                {% if mood %}
+                    <div class="ui message" style="margin-top:5px;">
+                        <span>{{ mood.note }}</span>
+                    </div>
+                {% endif %}
+            </td>
+
+            {% set dayCount = dayCount + 1 %}
+            {% if dayCount % 7 == 0 %}
+        </tr><tr>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

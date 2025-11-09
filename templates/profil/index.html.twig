@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+    <h1 style="margin-bottom: 0;">Bonjour {{ app.user.name }},</h1>
+    <h3 style="margin-top: 0;"><i><dd>Comment allez-vous aujourd'hui ?</i></h3>
+
+    <div style="margin: 50px 0px 50px 0px" class="new-mood">
+        <div class="ui form">
+            {{ form_start(moodForm) }}
+                <div class="field">
+                    {{ form_row(moodForm.mood) }}
+                </div>
+
+                <div class="field">
+                    {{ form_row(moodForm.note) }}
+                </div>
+
+                <div class="field">
+                    {{ form_row(moodForm.submit) }}
+                </div>
+            {{ form_end(moodForm) }}
+        </div>
+    </div>
+
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            {% for i in 0..6 %}
+                <th style="text-align: center;">
+                    <span style="font-size: 24px;">{{ (monday|date_modify('+' ~i ~' day'))|date('l') }} <br></span>
+                    <span style="font-weight: lighter">{{ (monday|date_modify('+' ~i ~' day'))|date('d/m') }}</span>
+                </th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% set moodIcons = {
+                1: '😎',
+                2: '😁',
+                3: '🤔',
+                4: '😞',
+                5: '😫'
+            } %}
+
+            {% set moodLabels = {
+                1: 'Super Heureux',
+                2: 'Heureux',
+                3: 'Neutre',
+                4: 'Triste',
+                5: 'Très Triste'
+            } %}
+            {% for date, mood in weekDays %}
+                <td>
+                    <span class='icon'>{{ mood ? moodIcons[mood.mood] : '' }}</span>
+                    <br><br>
+                    <span class="label">{{ mood ? moodLabels[mood.mood] : '' }}</span>
+                    <br><br>
+                    {% if mood %}
+                        <div class="ui message">
+                            <span>{{ mood.note }}</span>
+                        </div>
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('app_profil_mois') }}">Voir le calendrier mensuel</a>
+{% endblock %}
